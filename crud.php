@@ -56,4 +56,35 @@ VALUES (:nome, :telefone, :email)");//precisa de parametro
 
 
 //$pdo -> query("UPDATE pessoa set email = 'joaoBnana@gmail.com' WHERE id = '5'")
+
+
+//------------------------------SELECT---------------------------------------------//;
+
+$res = $pdo -> prepare("SELECT * FROM pessoa WHERE id = :id");
+$res -> bindValue(":id", 12);
+
+$res -> execute();
+$result = $res -> fetch(PDO::FETCH_ASSOC);// Para uma pessoa, o fecth assoc faz que rotorno apenas o valor das colunas
+// $res -> fetchAll(); se fosse de todas pessoas
+//echo "<pre>";
+//print_r($result);
+//echo "</pre>"
+
+foreach($result as $key => $value){
+    echo $key.": ".$value."<br>";
+}
+
+
+$res = $pdo -> query("SELECT * FROM pessoa WHERE id = 11");
+$resultTwo = $res -> fetch(PDO::FETCH_ASSOC);
+foreach($resultTwo as $key => $value){
+    echo $key.": ".$value."<br>";
+}
+
+$res = $pdo -> query("SELECT * FROM pessoa");
+$resultThre = $res -> fetchAll(PDO::FETCH_COLUMN);
+foreach($resultThre as $key => $value){
+    echo $key.": ".$value."<br>";
+}
+
 ?>
